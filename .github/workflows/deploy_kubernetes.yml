@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: q12-microservico
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: q12-microservico
+  template:
+    metadata:
+      labels:
+        app: q12-microservico
+    spec:
+      containers:
+      - name: q12-microservico
+        image: ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:latest
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: q12-microservico-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: q12-microservico
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8080
