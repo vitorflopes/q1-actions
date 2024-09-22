@@ -18,6 +18,11 @@ public class ItemController {
         return itemService.findAll();
     }
 
+    @GetMapping("/rota-nova")
+    public String getRotaNova() {
+        return "Eu sou a rota nova.";
+    }
+
     @GetMapping("/{id}")
     public Mono<Item> getItemById(@PathVariable long id) {
         return itemService.findById(id);
